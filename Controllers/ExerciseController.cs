@@ -66,17 +66,44 @@ namespace ExerciseLog.Api
         //     return NoContent();
         // }
     }
-    // Endpoint for exercise sets
+
     [Route("api/[controller]")]
     [ApiController]
-    public class SetController : ControllerBase
+    public class SessionController : ControllerBase
     {
-        [HttpGet]
-        public ActionResult<IEnumerable<string>> Get()
+        private readonly Persistence _sessionRepository;
+
+        public SessionController(Persistence sessionRepository)
         {
-            // Implement your API logic here
-            return new string[] { "Set 1", "Set 2" };
+            _sessionRepository = sessionRepository;
+        }
+
+        [HttpGet]
+        public async Task<ActionResult<IEnumerable<Session>>> Get()
+        {
+            return Ok(_sessionRepository.Set<Session>());
+
+        }
+
+        [HttpPost]
+        public async Task<ActionResult<Session>> Post(Session session)
+        {
+            await _sessionRepository.AddAsync(session);
+            await _sessionRepository.SaveChangesAsync();
+            return CreatedAtAction(nameof(Get), new { id = session.Id }, session);
         }
     }
+    // Endpoint for exercise sets
+    // [Route("api/[set]")]
+    // [ApiController]
+    // public class SetController : ControllerBase
+    // {
+    //     [HttpGet]
+    //     public ActionResult<IEnumerable<string>> Get()
+    //     {
+    //         // Implement your API logic here
+    //         return new string[] { "Set 1", "Set 2" };
+    //     }
+    // }
 
 }

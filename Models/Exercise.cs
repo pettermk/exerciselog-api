@@ -10,6 +10,7 @@ public class Persistence : DbContext
     {
     }
     public DbSet<Exercise> Exercises { get; set; }
+    public DbSet<Session> Sessions { get; set; }
 
 }
 
@@ -42,4 +43,18 @@ public class Set
     public int Reps { get; set; }
 
     // Add other properties for the Set entity
+}
+
+public class Session
+{
+    [Key]
+    public int Id {get; set; }
+    [ForeignKey("Exercise")]
+    public int ExerciseId { get; set; }
+
+    [Required]
+    public required DateTime Timestamp { get; set; }
+
+    [Required]
+    public TimeSpan Duration { get; set; }
 }
