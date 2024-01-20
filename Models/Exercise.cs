@@ -11,7 +11,8 @@ public class Persistence : DbContext
     }
     public DbSet<Exercise> Exercises { get; set; }
     public DbSet<Session> Sessions { get; set; }
-
+    protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        => optionsBuilder.UseNpgsql(@"Host=localhost;Username=postgres;Password=12345;Database=exerciselog");
 }
 
 
@@ -35,9 +36,8 @@ public class Set
     [ForeignKey("Exercise")]
     public int ExerciseId { get; set; }
 
-    [Timestamp]
     [Required]
-    public required byte[] Timestamp { get; set; }
+    public required DateTime Timestamp { get; set; }
 
     public float Weight { get; set; }
     public int Reps { get; set; }
