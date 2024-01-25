@@ -11,6 +11,7 @@ public class Persistence : DbContext
     }
     public DbSet<Exercise> Exercises { get; set; }
     public DbSet<Session> Sessions { get; set; }
+    public DbSet<Set> Sets { get; set; }
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         => optionsBuilder.UseNpgsql(@"Host=localhost;Username=postgres;Password=12345;Database=exerciselog");
 }

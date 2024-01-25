@@ -42,29 +42,6 @@ namespace ExerciseLog.Api
             await _exerciseRepository.SaveChangesAsync();
             return CreatedAtAction(nameof(Get), new { id = exercise.Id }, exercise);
         }
-
-        // [HttpPut("{id}")]
-        // public async Task<IActionResult> Put(int id, Exercise exercise)
-        // {
-        //     if (id != exercise.Id)
-        //     {
-        //         return BadRequest();
-        //     }
-        //     await _exerciseRepository.Update<Exercise>(exercise);
-        //     return NoContent();
-        // }
-
-        // [HttpDelete("{id}")]
-        // public async Task<IActionResult> Delete(int id)
-        // {
-        //     var exercise = await _exerciseRepository.Remove<Exercise>(id);
-        //     if (exercise == null)
-        //     {
-        //         return NotFound();
-        //     }
-        //     await _exerciseRepository.DeleteExerciseAsync(exercise);
-        //     return NoContent();
-        // }
     }
 
     [Route("api/[controller]")]
@@ -94,16 +71,30 @@ namespace ExerciseLog.Api
         }
     }
     // Endpoint for exercise sets
-    // [Route("api/[set]")]
-    // [ApiController]
-    // public class SetController : ControllerBase
-    // {
-    //     [HttpGet]
-    //     public ActionResult<IEnumerable<string>> Get()
-    //     {
-    //         // Implement your API logic here
-    //         return new string[] { "Set 1", "Set 2" };
-    //     }
-    // }
+    [Route("api/[controller]")]
+    [ApiController]
+    public class SetController : ControllerBase
+    {
+        private readonly Persistence _setRepository;
+
+        public SetController(Persistence setRepository)
+        {
+            _setRepository = setRepository;
+        }
+        
+        [HttpGet]
+        public ActionResult<IEnumerable<Set>> Get()
+        {
+            return Ok(_setRepository.Set<Set>());
+        }
+        
+        [HttpPost]
+        public async Task<ActionResult<Set>> Post(Set set)
+        {
+            await _setRepository.AddAsync(set);
+            await _setRepository.SaveChangesAsync();
+            return CreatedAtAction(nameof(Get), new { id = set.Id }, set);
+        }
+    }
 
 }
