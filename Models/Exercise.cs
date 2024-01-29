@@ -1,6 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Diagnostics.Eventing.Reader;
 
 namespace ExerciseLogApi.Models;
 
@@ -13,7 +14,19 @@ public class Persistence : DbContext
     public DbSet<Session> Sessions { get; set; }
     public DbSet<Set> Sets { get; set; }
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        => optionsBuilder.UseNpgsql(@"Host=localhost;Username=postgres;Password=12345;Database=exerciselog");
+    {
+        String connString;
+        var connFromEnv = System.Environment.GetEnvironmentVariable("POSTGRES_CONN_STRING");
+        if (connFromEnv is not null)
+        {
+            connString = connFromEnv;
+        }
+        else
+        {
+            connString = @"Host=localhost;Username=postgres;Password=12345;Database=exerciselog";
+        }
+        optionsBuilder.UseNpgsql(connString);
+    }
 }
 
 
