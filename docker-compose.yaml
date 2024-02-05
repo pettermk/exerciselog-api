@@ -11,4 +11,12 @@ services:
       - POSTGRES_PASSWORD=12345
       - POSTGRES_USER=postgres
       - POSTGRES_DB=exerciselog
-
+  
+  api:
+    build: .
+    depends_on: postgres
+    ports:
+      - 5073:80
+    environment:
+      - POSTGRES_CONN_STRING=Host=postgres;Username=postgres;Password=12345;Database=exerciselog
+    
