@@ -13,11 +13,11 @@ spec:
         resources:
           requests:
             storage: 10Gi
-   users:
-   - name: exerciselog
-     options: SUPERUSER
-     databases:
-     - exerciselog
+  users:
+  - name: exerciselog
+    options: 'SUPERUSER'
+    databases:
+    - exerciselog
   backups:
     pgbackrest:
       image: registry.developers.crunchydata.com/crunchydata/crunchy-pgbackrest:ubi8-2.47-2
