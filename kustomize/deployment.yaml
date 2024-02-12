@@ -1,0 +1,55 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: exerciselog-api-deployment
+  labels:
+    app: exerciselog-api
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: exerciselog-api
+  template:
+    metadata:
+      labels:
+        app: exerciselog-api
+    spec:
+      initContainers:
+      - name: exerciselog-api-migrate
+        image: ghcr.io/pettermk/exerciselog-api-migrate:main
+        command: |
+          dotnet ef database update
+        imagePullPolicy: Always
+        env:
+        - name: POSTGRES_CONN_STRING
+          valueFrom:
+            secretKeyRef:
+              name: exerciselog-db-pguser-exerciselog
+              key: uri
+
+      containers:
+      - name: exerciselog-api
+        image: ghcr.io/pettermk/exerciselog-api:main
+        ports:
+        - containerPort: 5073
+        imagePullPolicy: Always
+        env:
+        - name: POSTGRES_CONN_STRING
+          valueFrom:
+            secretKeyRef:
+              name: exerciselog-db-pguser-exerciselog
+              key: uri
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: exerciselog-api-service
+spec:
+  selector:
+    app: exerciselog-api
+  ports:
+    - port: 5073
+      targetPort: 5073
+      protocol: TCP
+      name: http
+  type: ClusterIP
