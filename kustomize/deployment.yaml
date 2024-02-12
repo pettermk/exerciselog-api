@@ -16,7 +16,7 @@ spec:
     spec:
       initContainers:
       - name: exerciselog-api-migrate
-        image: ghcr.io/pettermk/exerciselog-api-migrate:main
+        image: ghcr.io/pettermk/exerciselog-api:main-migrate
         command:
           ["dotnet", "ef", "database", "update"]
         imagePullPolicy: Always
