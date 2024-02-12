@@ -17,8 +17,8 @@ spec:
       initContainers:
       - name: exerciselog-api-migrate
         image: ghcr.io/pettermk/exerciselog-api-migrate:main
-        command: |
-          dotnet ef database update
+        command:
+          ["dotnet", "ef", "database", "update"]
         imagePullPolicy: Always
         env:
         - name: POSTGRES_CONN_STRING
