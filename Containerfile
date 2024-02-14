@@ -7,6 +7,7 @@ COPY . ./
 RUN dotnet restore
 
 RUN dotnet tool install --global dotnet-ef --version 7.*
+ENV PATH="$PATH:/root/.dotnet/tools"
 # Build and publish a release
 RUN dotnet publish -c Release -o out
 
