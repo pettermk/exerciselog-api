@@ -21,11 +21,26 @@ spec:
           ["dotnet", "ef", "database", "update"]
         imagePullPolicy: Always
         env:
-        - name: POSTGRES_CONN_STRING
+        - name: PG_HOST
           valueFrom:
             secretKeyRef:
               name: exerciselog-db-pguser-exerciselog
-              key: uri
+              key: host
+        - name: PG_USER
+          valueFrom:
+            secretKeyRef:
+              name: exerciselog-db-pguser-exerciselog
+              key: user
+        - name: PG_DATABASE
+          valueFrom:
+            secretKeyRef:
+              name: exerciselog-db-pguser-exerciselog
+              key: dbname
+        - name: PG_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: exerciselog-db-pguser-exerciselog
+              key: password
 
       containers:
       - name: exerciselog-api
@@ -34,11 +49,26 @@ spec:
         - containerPort: 5073
         imagePullPolicy: Always
         env:
-        - name: POSTGRES_CONN_STRING
+        - name: PG_HOST
           valueFrom:
             secretKeyRef:
               name: exerciselog-db-pguser-exerciselog
-              key: uri
+              key: host
+        - name: PG_USER
+          valueFrom:
+            secretKeyRef:
+              name: exerciselog-db-pguser-exerciselog
+              key: user
+        - name: PG_DATABASE
+          valueFrom:
+            secretKeyRef:
+              name: exerciselog-db-pguser-exerciselog
+              key: dbname
+        - name: PG_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: exerciselog-db-pguser-exerciselog
+              key: password
 ---
 apiVersion: v1
 kind: Service
