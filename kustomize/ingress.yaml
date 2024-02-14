@@ -21,4 +21,4 @@ spec:
             service:
               name: exerciselog-api-service
               port:
-                number: 5073
+                number: 80

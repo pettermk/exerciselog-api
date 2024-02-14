@@ -46,7 +46,7 @@ spec:
       - name: exerciselog-api
         image: ghcr.io/pettermk/exerciselog-api:main
         ports:
-        - containerPort: 5073
+        - containerPort: 80
         imagePullPolicy: Always
         env:
         - name: PG_HOST
@@ -78,8 +78,8 @@ spec:
   selector:
     app: exerciselog-api
   ports:
-    - port: 5073
-      targetPort: 5073
+    - port: 80
+      targetPort: 80
       protocol: TCP
       name: http
   type: ClusterIP
