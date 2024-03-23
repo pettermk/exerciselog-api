@@ -2,6 +2,7 @@ using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 using ExerciseLogApi.Models;
 using Microsoft.Extensions.ObjectPool;
+using Microsoft.AspNetCore.Authorization;
 
 namespace ExerciseLog.Api
 {
@@ -18,6 +19,7 @@ namespace ExerciseLog.Api
         }
 
         [HttpGet]
+        [Authorize]
         public async Task<ActionResult<IEnumerable<Exercise>>> Get()
         {
             return Ok(_exerciseRepository.Set<Exercise>());
