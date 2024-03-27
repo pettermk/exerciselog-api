@@ -8,6 +8,7 @@ namespace ExerciseLog.Api
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize]
     public class ExerciseController : ControllerBase
     {
  
@@ -19,7 +20,6 @@ namespace ExerciseLog.Api
         }
 
         [HttpGet]
-        [Authorize]
         public async Task<ActionResult<IEnumerable<Exercise>>> Get()
         {
             return Ok(_exerciseRepository.Set<Exercise>());
@@ -48,6 +48,7 @@ namespace ExerciseLog.Api
 
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize]
     public class SessionController : ControllerBase
     {
         private readonly Persistence _sessionRepository;
@@ -75,6 +76,7 @@ namespace ExerciseLog.Api
     // Endpoint for exercise sets
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize]
     public class SetController : ControllerBase
     {
         private readonly Persistence _setRepository;
