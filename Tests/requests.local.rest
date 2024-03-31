@@ -1,0 +1,6 @@
+http://localhost:5073/api/exercise
+Method: GET 
+Accept: */*
+Origin: http://localhost
+Sec-Fetch-Mode: cors
+Authorization: Bearer 
