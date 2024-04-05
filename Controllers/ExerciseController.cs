@@ -2,6 +2,8 @@ using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 using ExerciseLogApi.Models;
 using Microsoft.Extensions.ObjectPool;
+using System.Linq;
+using System.Linq.Expressions;
 using Microsoft.AspNetCore.Authorization;
 
 namespace ExerciseLog.Api
@@ -92,6 +94,19 @@ namespace ExerciseLog.Api
             return Ok(_setRepository.Set<Set>());
         }
         
+        [HttpGet("{exerciseId}")]
+        public async Task<ActionResult<Exercise>> Get(int exerciseId)
+        {
+            // var sets = await _setRepository.FindAsync<Set>(exerciseId);
+            var sets = _setRepository.Sets.Where(e => e.ExerciseId == exerciseId);
+
+            if (sets == null)
+            {
+                return NotFound();
+            }
+            return Ok(sets);
+        }
+
         [HttpPost]
         public async Task<ActionResult<Set>> Post(Set set)
         {
