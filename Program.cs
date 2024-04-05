@@ -15,7 +15,7 @@ builder.Services.AddCors(options =>
     options.AddPolicy(name: "AllowCors",
                       policy  =>
                       {
-                          policy.WithOrigins("*").AllowAnyHeader();
+                          policy.WithOrigins("*").AllowAnyHeader().AllowAnyMethod();
                       });
 });
 builder.Services.AddDbContext<Persistence>();
