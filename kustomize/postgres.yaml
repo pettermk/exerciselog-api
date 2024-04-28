@@ -1,32 +1,14 @@
-apiVersion: postgres-operator.crunchydata.com/v1beta1
-kind: PostgresCluster
+apiVersion: postgresql.cnpg.io/v1
+kind: Cluster
 metadata:
   name: exerciselog-db
 spec:
-  image: registry.developers.crunchydata.com/crunchydata/crunchy-postgres:ubi8-15.5-0
-  postgresVersion: 15
-  instances:
-    - name: instance1
-      dataVolumeClaimSpec:
-        accessModes:
-        - "ReadWriteOnce"
-        resources:
-          requests:
-            storage: 10Gi
-  users:
-  - name: exerciselog
-    options: 'SUPERUSER'
-    databases:
-    - exerciselog
-  backups:
-    pgbackrest:
-      image: registry.developers.crunchydata.com/crunchydata/crunchy-pgbackrest:ubi8-2.47-2
-      repos:
-      - name: repo1
-        volume:
-          volumeClaimSpec:
-            accessModes:
-            - "ReadWriteOnce"
-            resources:
-              requests:
-                storage: 10Gi
+  instances: 2
+
+  bootstrap:
+    initdb:
+      database: exerciselog
+      owner: exerciselog
+
+  storage:
+    size: 3Gi

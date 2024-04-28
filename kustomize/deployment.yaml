@@ -24,22 +24,22 @@ spec:
         - name: PG_HOST
           valueFrom:
             secretKeyRef:
-              name: exerciselog-db-pguser-exerciselog
+              name: exerciselog-db-app
               key: host
         - name: PG_USER
           valueFrom:
             secretKeyRef:
-              name: exerciselog-db-pguser-exerciselog
+              name: exerciselog-db-app
               key: user
         - name: PG_DATABASE
           valueFrom:
             secretKeyRef:
-              name: exerciselog-db-pguser-exerciselog
+              name: exerciselog-db-app
               key: dbname
         - name: PG_PASSWORD
           valueFrom:
             secretKeyRef:
-              name: exerciselog-db-pguser-exerciselog
+              name: exerciselog-db-app
               key: password
 
       containers:
@@ -52,22 +52,22 @@ spec:
         - name: PG_HOST
           valueFrom:
             secretKeyRef:
-              name: exerciselog-db-pguser-exerciselog
+              name: exerciselog-db-app
               key: host
         - name: PG_USER
           valueFrom:
             secretKeyRef:
-              name: exerciselog-db-pguser-exerciselog
+              name: exerciselog-db-app
               key: user
         - name: PG_DATABASE
           valueFrom:
             secretKeyRef:
-              name: exerciselog-db-pguser-exerciselog
+              name: exerciselog-db-app
               key: dbname
         - name: PG_PASSWORD
           valueFrom:
             secretKeyRef:
-              name: exerciselog-db-pguser-exerciselog
+              name: exerciselog-db-app
               key: password
 ---
 apiVersion: v1
