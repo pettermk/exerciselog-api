@@ -13,10 +13,18 @@ services:
       - POSTGRES_DB=exerciselog
   
   api:
-    build: .
+    build:
+      context: .
+      dockerfile: Containerfile
+      target: build-env
     depends_on: postgres
+    entrypoint:
+    - dotnet
+    - out/ExerciseLogApi.dll
     ports:
-      - 5073:80
+      - 5074:80
     environment:
-      - POSTGRES_CONN_STRING=Host=postgres;Username=postgres;Password=12345;Database=exerciselog
-    
+      - PG_HOST=postgres
+      - PG_USER=postgres
+      - PG_PASSWORD=12345
+      - PG_DATABASE=exerciselog
