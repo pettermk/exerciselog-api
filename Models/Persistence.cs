@@ -10,6 +10,7 @@ public class Persistence : DbContext
     public DbSet<Exercise> Exercises { get; set; }
     public DbSet<Session> Sessions { get; set; }
     public DbSet<Set> Sets { get; set; }
+    public DbSet<Timeseries> Timeseries { get; set; }
 
     private string ConnectionStringFromEnv() {
         var configBuilder = new ConfigurationBuilder()
