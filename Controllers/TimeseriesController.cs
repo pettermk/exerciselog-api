@@ -10,7 +10,7 @@ namespace timeseriesLog.Api
 {
     [Route("api/[controller]")]
     [ApiController]
-    [Authorize]
+    // [Authorize]
     public class TimeseriesController : ControllerBase
     {
  
@@ -25,7 +25,6 @@ namespace timeseriesLog.Api
         public async Task<ActionResult<IEnumerable<Timeseries>>> Get()
         {
             return Ok(_timeseriesRepository.Set<Timeseries>());
-
         }
 
         [HttpGet("{id}")]
@@ -45,6 +44,31 @@ namespace timeseriesLog.Api
             await _timeseriesRepository.AddAsync(timeseries);
             await _timeseriesRepository.SaveChangesAsync();
             return CreatedAtAction(nameof(Get), new { id = timeseries.Id }, timeseries);
+        }
+    }
+
+    [Route("api/[controller]")]
+    [ApiController]
+    // [Authorize]
+    public class DistinctDimensions : ControllerBase
+    {
+        private readonly Persistence _timeseriesRepository;
+
+        public DistinctDimensions(Persistence timeseriesRepository)
+        {
+            _timeseriesRepository = timeseriesRepository;
+        }
+
+        [HttpGet]
+        public async Task<ActionResult<IEnumerable<String>>> GetUniqueDimensions()
+        {
+            var d = _timeseriesRepository.Timeseries
+                .Select(ts => ts.Dimension)
+                .Distinct()
+                .ToList();
+            return Ok(d);
+            // return Ok(_timeseriesRepository.Get<Timeseries>().DistinctBy(ts => ts.Dimension));
+            // return Ok(_timeseriesRepository.Set<Timeseries>());
         }
     }
 }
