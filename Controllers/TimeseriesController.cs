@@ -49,7 +49,7 @@ namespace timeseriesLog.Api
 
     [Route("api/[controller]")]
     [ApiController]
-    // [Authorize]
+    [Authorize]
     public class DistinctDimensions : ControllerBase
     {
         private readonly Persistence _timeseriesRepository;
