@@ -67,8 +67,6 @@ namespace timeseriesLog.Api
                 .Distinct()
                 .ToList();
             return Ok(d);
-            // return Ok(_timeseriesRepository.Get<Timeseries>().DistinctBy(ts => ts.Dimension));
-            // return Ok(_timeseriesRepository.Set<Timeseries>());
         }
     }
 }
