@@ -9,7 +9,7 @@ spec:
     # initdb:
     #   database: exerciselog
     #   owner: exerciselog
-    restore:
+    recovery:
       backup:
         barmanObjectStore:
           destinationPath: "https://cloudnativepgbackups.blob.core.windows.net/barman"
