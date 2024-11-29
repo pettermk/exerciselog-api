@@ -6,9 +6,25 @@ spec:
   instances: 2
 
   bootstrap:
-    initdb:
-      database: exerciselog
-      owner: exerciselog
+    # initdb:
+    #   database: exerciselog
+    #   owner: exerciselog
+    restore:
+      backup:
+        barmanObjectStore:
+          destinationPath: "https://cloudnativepgbackups.blob.core.windows.net/barman"
+          azureCredentials:
+            connectionString:
+              name: azure-creds
+              key: AZURE_STORAGE_CONNECTION_STRING
+          wal:
+            compression: gzip
+            maxParallel: 2
+            encryption: AES256
+          data:
+            compression: gzip
+            encryption: AES256
+            immediateCheckpoint: false
 
   storage:
     size: 3Gi
