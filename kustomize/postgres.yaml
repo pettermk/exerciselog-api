@@ -6,11 +6,10 @@ spec:
   instances: 2
 
   bootstrap:
-    # initdb:
-    #   database: exerciselog
-    #   owner: exerciselog
-    recovery:
-      source: clusterBackup
+    initdb:
+      database: exerciselog
+      owner: exerciselog
+
   externalClusters:
     - name: clusterBackup
       barmanObjectStore:
@@ -29,7 +28,7 @@ spec:
           immediateCheckpoint: false
 
   storage:
-    size: 3Gi
+    size: 10Gi
 
   backup:
     barmanObjectStore:
