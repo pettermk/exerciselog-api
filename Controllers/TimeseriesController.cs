@@ -10,7 +10,7 @@ namespace timeseriesLog.Api
 {
     [Route("api/[controller]")]
     [ApiController]
-    // [Authorize]
+    [Authorize]
     public class TimeseriesController : ControllerBase
     {
  
