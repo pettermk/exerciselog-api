@@ -37,6 +37,21 @@ namespace timeseriesLog.Api
             }
             return Ok(timeseries);
         }
+        [HttpGet("latest")]
+        public async Task<ActionResult<IEnumerable<Timeseries>>> GetLatest(int number)
+        {
+            var latestTimeserie = _timeseriesRepository
+                .Set<Timeseries>()
+                .OrderByDescending(ts => ts.Timestamp)
+                .Take(number); // Assuming there's a Timestamp property to order by
+
+            if (latestTimeserie == null)
+            {
+                return NotFound("No timeseries found.");
+            }
+
+            return Ok(latestTimeserie);
+        }
 
         [HttpPost]
         public async Task<ActionResult<Timeseries>> Post(Timeseries timeseries)
