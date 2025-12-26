@@ -44,7 +44,7 @@ spec:
 
       containers:
       - name: exerciselog-api
-        image: ghcr.io/pettermk/exerciselog-api:main
+        image: ghcr.io/pettermk/exerciselog-api:v0.0.5
         ports:
         - containerPort: 8080
         imagePullPolicy: Always
@@ -88,7 +88,7 @@ spec:
     spec:
       containers:
       - name: exerciselog
-        image: ghcr.io/pettermk/exerciselog:0.0.5
+        image: ghcr.io/pettermk/exerciselog:0.0.6
         ports:
         - containerPort: 8080
 ---
