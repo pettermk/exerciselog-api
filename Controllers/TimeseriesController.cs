@@ -60,6 +60,20 @@ namespace timeseriesLog.Api
             await _timeseriesRepository.SaveChangesAsync();
             return CreatedAtAction(nameof(Get), new { id = timeseries.Id }, timeseries);
         }
+
+        [HttpDelete("{id}")]
+        public async Task<ActionResult> Delete(int id)
+        {
+            var timeseries = await _timeseriesRepository.FindAsync<Timeseries>(id);
+            if (timeseries == null)
+            {
+                return NotFound();
+            }
+            
+            _timeseriesRepository.Remove(timeseries);
+            await _timeseriesRepository.SaveChangesAsync();
+            return NoContent();
+        }
     }
 
     [Route("api/[controller]")]
